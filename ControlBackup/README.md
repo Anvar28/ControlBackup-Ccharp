@@ -34,7 +34,7 @@ SMTP сервер, по умолчанию smtp.yandex.ru:25
 Примеры запуска
 
 Из командной строки:
-D:\1C\Свои\backupControl>backupcontrol.exe -u test@yandex.ru -p pas$1 -t apxi2@yandex.ru -su Проверка архивов -pb E:\arhiv\
+D:\1C\Свои\backupControl>backupcontrol.exe -u test@yandex.ru -p pas$1 -t apxi2@yandex.ru -su "Проверка архивов" -pb "E:\arhiv\"
 
 С помощью отдельного файла настроек:
 D:\1C\Свои\backupControl>backupcontrol.exe -f test.ini
