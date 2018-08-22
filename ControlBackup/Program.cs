@@ -80,7 +80,7 @@ internal class Program
     static void ParseParam(string[] args, cParam param, tProgramData programData)
     {
         param.Add("-f", tParamData.tBoll, "", "Если указан, то настройки берутся из param.ini файла. Файл с пустыми настройками создан.");
-        param.Add("-s", tParamData.tString, "", "адрес smtp сервера, например smtp.yandex.ru");
+        param.Add("-s", tParamData.tString, "smtp.yandex.ru:25", "адрес smtp сервера, например smtp.yandex.ru");
         param.Add("-u", tParamData.tString, "", "почта под который делать отправку писем");
         param.Add("-p", tParamData.tString, "", "пароль");
         param.Add("-m", tParamData.tString, "", "адрес почты на который нужно отправлять письма, например apxi2@yandex.ru");
