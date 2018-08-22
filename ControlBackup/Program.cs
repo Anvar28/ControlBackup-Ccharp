@@ -21,7 +21,7 @@ class tProgramData
 
 internal class Program
 {
-    const string strErrorNotFoundPath = "Не найден каталог где лежат архивы.";
+    const string strErrorNotFoundPath = "Не найден каталог где лежат архивы {0}.";
     const string strInfoNotArchiv = "Каталог с архивами пустой";
     const string strInfoOldArсhiv = "Последний архив был сделан {0}, за сегодняшний день архивов нет.";
     const string strInfoSizeNewArchivSmaller = "Размер {0} нового архива {1} \r меньше чем размер {3} нового архива {4}";
@@ -83,7 +83,7 @@ internal class Program
         param.Add("-s", tParamData.tString, "smtp.yandex.ru:25", "адрес smtp сервера, например smtp.yandex.ru");
         param.Add("-u", tParamData.tString, "", "почта под который делать отправку писем");
         param.Add("-p", tParamData.tString, "", "пароль");
-        param.Add("-m", tParamData.tString, "", "адрес почты на который нужно отправлять письма, например apxi2@yandex.ru");
+        param.Add("-t", tParamData.tString, "", "адрес почты на который нужно отправлять письма, например apxi2@yandex.ru");
         param.Add("-su", tParamData.tString, "", "тема письма");
         param.Add("-pb", tParamData.tString, "", "контролируемый каталог с архивами");
         param.Parse(args);
@@ -91,31 +91,45 @@ internal class Program
         programData.smtpServer = param.Get("-s").data;
         programData.userName = param.Get("-u").data;
         programData.password = param.Get("-p").data;
-        programData.mailto = param.Get("-m").data;
+        programData.mailto = param.Get("-t").data;
         programData.subject = param.Get("-su").data;
         programData.pathBackup = param.Get("-pb").data;
 
         loadFromIni(args, param, programData);
     }
 
+    static void log(string str)
+    {
+        Console.WriteLine(str);
+    }
+
     static void sendMail(tProgramData programData, string body)
     {
-
         if ((programData.smtpServer != "") && (programData.userName != "") && (programData.password != "")) {
+
+            string[] w = programData.smtpServer.Split(new char[] { ':' });
+            int port = 25;
+            string server = w[0];
+            if (w.Count() > 1)
+            {
+                int.TryParse(w[1], out port);
+            }
+
+            log("Отправка письма: ");
+            log("Сервер: " + server);
+            log("Порт: " + port);
+            log("Пользователь: " + programData.userName);
+            log("Получатель: " + programData.mailto);
+            log("Тема: " + programData.subject);
+            log("Письмо: " + body);
+
             using (MailMessage mm = new MailMessage(programData.userName, programData.mailto))
             {
                 mm.Subject = programData.subject;
                 mm.Body = body;
                 mm.IsBodyHtml = false;
 
-                string[] w = programData.smtpServer.Split(new char[] { ':' });
-                int port = 0;
-                if (w.Count() > 1)
-                {
-                    int.TryParse(w[1], out port);
-                }
-
-                SmtpClient sc = new SmtpClient(w[0], port);
+                SmtpClient sc = new SmtpClient(server, port);
                 sc.EnableSsl = true;
                 sc.DeliveryMethod = SmtpDeliveryMethod.Network;
                 sc.UseDefaultCredentials = false;
@@ -147,7 +161,7 @@ internal class Program
         // Проверяем путь
         if (!Directory.Exists(programData.pathBackup))
         {
-            sendMail(programData, strErrorNotFoundPath);
+            sendMail(programData, string.Format(strErrorNotFoundPath, programData.pathBackup));
         }
         else
         {

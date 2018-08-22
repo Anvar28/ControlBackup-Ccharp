@@ -8,25 +8,25 @@
 
 Параметры запуска:
 
--f FILEPROPERTY, --fileproperty FILEPROPERTY  
+-f FILEPROPERTY
 Если заполнен данный параметр, то все остальные данные берутся из данного файла.
 
--s SMTPSERVER, --smtpserver SMTPSERVER
+-s SMTPSERVER
 SMTP сервер, по умолчанию smtp.yandex.ru:25
 
--u USERNAME, --username USERNAME
+-u USERNAME
 Логин пользователя почты
 
--p PASSWORD, --password PASSWORD
+-p PASSWORD
 Пароль пользователя почты
 
--t MAILTO, --mailto MAILTO
+-t MAILTO
 Куда отсылать информацию
 
--su SUBJECT, --subject SUBJECT
+-su SUBJECT
 Тема письма
 
--pb PATHBACKUP, --pathbackup PATHBACKUP
+-pb PATHBACKUP
 Путь к каталогу где лежат архивы
 
 -------------------------------  
