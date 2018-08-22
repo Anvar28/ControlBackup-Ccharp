@@ -41,11 +41,13 @@ D:\1C\Свои\backupControl>backupcontrol.exe -f test.ini
 
 Файл test.ini
 [settings]
-smtpserver = smtp.yandex.ru:25\r
-username = test@yandex.ru\r
-password = pas\r
-mailto = apxi2@yandex.ru\r
-subject = Проверка архивов\r
-pathbackup = E:\arhiv\ \r
+smtpserver = smtp.yandex.ru:25
+username = test@yandex.ru
+password = pas
+mailto = apxi2@yandex.ru
+subject = Проверка архивов
+pathbackup = E:\arhiv\
 
+-------------------------------  
 
+Используется свой класс парсинга параметров командной строки
